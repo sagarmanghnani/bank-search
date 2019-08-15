@@ -1,12 +1,19 @@
 page-home {
     .bank-detail-card{
+        padding: 12px;
         .bank-name{
+            display: flex;
+            align-items: center;
             font-size: 1.4rem;
             font-weight: bold;
+            ion-col{
+                padding:0;
+            }
         }
         .bank-ifsc{
             font-size: 1.1rem;
             color: gray;
+            padding:0;
         }
         .bank-location{
             align-items: center;

@@ -74,4 +74,31 @@ export class HomePage {
     });
   }
 
+  setFavorite(bank:BankDataModal){
+    let favoriteBanks:string[] = [];
+    if(localStorage.getItem('favorite')){
+    favoriteBanks = JSON.parse(localStorage.getItem('favorite'));
+    let status = false;
+    let position = 0; 
+    for(let i = 0;i<favoriteBanks.length;i++){
+      if(favoriteBanks[i] == bank.ifsc){
+        status = true;
+        position = i;
+        break;
+      }
+    }
+
+    if(status){
+      favoriteBanks.splice(position, 1);
+    }else{
+      favoriteBanks.push(bank.ifsc);
+    }
+    }else{
+      favoriteBanks.push(bank.ifsc);
+    }
+    
+    localStorage.setItem('favorite', JSON.stringify(favoriteBanks));
+    
+  }
+
 }

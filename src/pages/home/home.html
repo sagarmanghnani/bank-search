@@ -15,7 +15,15 @@
      
           <ion-card-content class="bank-detail-card">
           <ion-row class="bank-name">
-            {{bank.bank_name}}
+            <ion-col col-11>
+                {{bank.bank_name}}
+            </ion-col>
+
+            <ion-col col-1 (click)="setFavorite(bank)">
+                <!-- <ion-icon name="heart-empty"></ion-icon> -->
+                <ion-icon name="heart"></ion-icon>
+            </ion-col>
+            
           </ion-row>  
 
           <ion-row class="bank-ifsc">
