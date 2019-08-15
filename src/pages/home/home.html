@@ -20,8 +20,9 @@
             </ion-col>
 
             <ion-col col-1 (click)="setFavorite(bank)">
-                <!-- <ion-icon name="heart-empty"></ion-icon> -->
-                <ion-icon name="heart"></ion-icon>
+                <!-- <ion-icon name="heart-empty" *ngIf="!checkFavorite(bank)"></ion-icon> -->
+                <i class="far fa-heart" *ngIf="!checkFavorite(bank)"></i>
+                <ion-icon name="heart" class="favorite-icon" *ngIf="checkFavorite(bank)"></ion-icon>
             </ion-col>
             
           </ion-row>  

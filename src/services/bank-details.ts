@@ -3,14 +3,17 @@ import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from "rxjs/Observable";
 import { map } from "rxjs/operators"
 import { BankDataModal } from "../modals/bank-data";
-import { LoadingController } from "ionic-angular";
+import { LoadingController, ToastController } from "ionic-angular";
 
 
 @Injectable()
 export class BankDetailsService {
     BANK_DETAILS_URL:string = "https://vast-shore-74260.herokuapp.com/banks";
 
-    constructor(public http: HttpClient, public loadingController: LoadingController){
+    constructor(public http: HttpClient,
+         public loadingController: LoadingController,
+         public toastCtrl:ToastController
+         ){
 
     }
     getBankDetails(city:string):Observable<BankDataModal[]> {
@@ -33,5 +36,14 @@ export class BankDetailsService {
             content: 'Please wait...'
         });
         return loading;
+    }
+
+    createToast(message:string, position:string){
+        let toast = this.toastCtrl.create({
+            message:message,
+            duration: 3000,
+            position:position
+        });
+        toast.present();
     }
 }

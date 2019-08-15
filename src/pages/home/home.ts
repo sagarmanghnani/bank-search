@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ToastController } from 'ionic-angular';
 import { BankDetailsService } from '../../services/bank-details';
 import { BankDataModal } from '../../modals/bank-data';
 
@@ -12,7 +12,10 @@ export class HomePage {
   selectedCity:string;
   bankList:BankDataModal[] = [];
   
-  constructor(public navCtrl: NavController, public bankDetailSeervice:BankDetailsService, public alertCtrl:AlertController) {
+  constructor(public navCtrl: NavController,
+     public bankDetailSeervice:BankDetailsService,
+      public alertCtrl:AlertController,
+    ) {
 
   }
 
@@ -90,15 +93,30 @@ export class HomePage {
 
     if(status){
       favoriteBanks.splice(position, 1);
+      this.bankDetailSeervice.createToast(`${bank.bank_name} is removed from favorites`, 'bottom');
     }else{
       favoriteBanks.push(bank.ifsc);
+      this.bankDetailSeervice.createToast(`${bank.bank_name} is added to favorites`, 'bottom');
     }
     }else{
       favoriteBanks.push(bank.ifsc);
+      this.bankDetailSeervice.createToast(`${bank.bank_name} is added to favorites`, 'bottom');
     }
     
     localStorage.setItem('favorite', JSON.stringify(favoriteBanks));
     
+  }
+
+  checkFavorite(bank:BankDataModal){
+    let status:boolean = false;
+    if(localStorage.getItem('favorite')){
+        let favoriteBanks:string[] = JSON.parse(localStorage.getItem('favorite'));
+        status = favoriteBanks.some(bank_ifsc => {
+        return bank_ifsc == bank.ifsc;
+      });
+    }
+
+    return status;
   }
 
 }
