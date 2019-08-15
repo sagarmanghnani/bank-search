@@ -4,14 +4,61 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <button ion-button (click)="selectCity()">
+    select city
+  </button>
+
+ <div>
+   <div *ngFor="let bank of bankList">
+      <ion-card>
+     
+          <ion-card-content class="bank-detail-card">
+          <ion-row class="bank-name">
+            {{bank.bank_name}}
+          </ion-row>  
+
+          <ion-row class="bank-ifsc">
+            {{bank.ifsc}}
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-4 class="bank-location">
+              <div>
+                City
+              </div>
+
+              <div>
+                {{bank.city}}
+              </div>
+            </ion-col>
+
+            <ion-col col-4 class="bank-location">
+              <div>
+                District
+              </div>
+
+              <div>
+                {{bank.district}}
+              </div>
+            </ion-col>
+
+            <ion-col col-4 class="bank-location">
+              <div>
+                State
+              </div>
+              <div>
+                {{bank.state}}
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="bank-address">
+            {{bank.address}}
+          </ion-row>
+          </ion-card-content>
+        </ion-card>
+   </div>
+  
+ </div>
 </ion-content>

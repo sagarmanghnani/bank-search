@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { BankDetailsService } from '../../services/bank-details';
+import { BankDataModal } from '../../modals/bank-data';
 
 @Component({
   selector: 'page-home',
@@ -8,17 +9,69 @@ import { BankDetailsService } from '../../services/bank-details';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public bankDetailSeervice:BankDetailsService) {
+  selectedCity:string;
+  bankList:BankDataModal[] = [];
+  
+  constructor(public navCtrl: NavController, public bankDetailSeervice:BankDetailsService, public alertCtrl:AlertController) {
 
   }
 
   ionViewDidLoad(){
+    this.selectedCity = 'MUMBAI'
     this.getBankDetails();
   }
 
+  selectCity(){
+    let alert = this.alertCtrl.create({
+      title:'Select City',
+      inputs:[
+        {
+          name:'MUMBAI',
+          type:'radio',
+          placeholder: 'MUMBAI',
+          label:'MUMBAI',
+          value:'MUMBAI'
+        },
+        {
+          name:'BANGALORE', 
+          type:'radio',
+          label:'BANGALORE',
+          placeholder: 'BANGALORE',
+          value: 'BANGALORE'
+        },
+        {
+          name: 'DELHI',
+          type:'radio',
+          label: 'DELHI',
+          placeholder: 'DELHI',
+          value: 'DELHI'
+        }
+      ],
+      buttons: [
+        {
+          text:'cancel',
+          role:'cancel'
+        },
+        {
+          text: 'Ok',
+          handler: (data) =>{
+            this.selectedCity = data;
+            this.getBankDetails();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
   getBankDetails(){
-    this.bankDetailSeervice.getBankDetails('MUMBAI')
-    .subscribe(res => console.log(res));
+    let loader = this.bankDetailSeervice.showLoader();
+    loader.present();
+    this.bankDetailSeervice.getBankDetails(this.selectedCity)
+    .subscribe(res => {
+      loader.dismiss();
+      this.bankList = [...res];
+    });
   }
 
 }
