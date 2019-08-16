@@ -9,8 +9,12 @@
     select city
   </button>
 
- <div>
-   <div *ngFor="let bank of bankList">
+  <div class="searchbox">
+    <search-bank #search  [bankData] = "bankList" ></search-bank>
+  </div>
+
+ <div *ngIf="searchedList?.length > 0">
+   <div *ngFor="let bank of searchedList">
       <ion-card>
      
           <ion-card-content class="bank-detail-card">

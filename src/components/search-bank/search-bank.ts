@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { BankDataModal } from '../../modals/bank-data';
+import { AlertController } from 'ionic-angular';
+import { Constants } from '../../Constants';
+import { BankDetailsService } from '../../services/bank-details';
 
 /**
  * Generated class for the SearchBankComponent component.
@@ -13,13 +16,121 @@ import { BankDataModal } from '../../modals/bank-data';
 })
 export class SearchBankComponent {
 
-  @Input() bankData:BankDataModal;
-  constructor() {
+  @Output() emitSearchedItem:EventEmitter<BankDataModal[]> = new EventEmitter()
+  @Input() bankData:BankDataModal[];
+  searchedBank:BankDataModal[] = [];
+  filterType:string = Constants.FILTER_TYPE_BANK;
+  previousStringLength:number = 0;
+  constructor(public alertController: AlertController,
+              public bankDetailService:BankDetailsService
+    ) {
     
   }
 
-  searchBank(filterType?:string){
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    if(changes['bankData'].currentValue.length > 0){
+      this.bankData = changes['bankData'].currentValue
+    }
     
+  }
+
+  searchBank(ev:any){
+    let val:string = ev.target.value;
+    
+    let loader = this.bankDetailService.showLoader();
+    if(val && val.length > 0){
+      if(this.previousStringLength < val.length){
+        this.searchedBank = [...this.bankData];
+        this.previousStringLength = val.length;
+      }
+      val = val.toLowerCase();
+        switch (this.filterType){
+          case Constants.FILTER_TYPE_BANK:{
+            this.searchedBank = this.bankData.filter(bank => {
+              if(bank.bank_name.toLowerCase().includes(val)){
+                return bank;
+              }
+            });
+            break;
+          }
+  
+          case Constants.FILTER_TYPE_ADDRESS: {
+            this.searchedBank = this.bankData.filter(bank => {
+              if(bank.address.toLowerCase().includes(val)){
+                return bank;
+              }
+            });
+            break;
+          }
+  
+          case Constants.FILTER_TYPE_IFSC: {
+            this.searchedBank = this.bankData.filter(bank => {
+              if(`${bank.ifsc}`.toLowerCase().includes(val)){
+                return bank;
+              }
+            });
+            break;
+          }
+        }
+  
+      
+    }else{
+      this.searchedBank = [...this.bankData];
+    }
+    
+    this.emitSearchedItem.emit(this.searchedBank);
+    loader.dismiss();
+  }
+
+  selectFilter(){
+    console.log(Constants.FILTER_TYPE_IFSC, "printed here");
+    let alert = this.alertController.create({
+      title:'Select City',
+      inputs:[
+        {
+          name:'Bank Name',
+          type:'radio',
+          label:'Bank Name',
+          value:Constants.FILTER_TYPE_BANK
+        },
+        {
+          name:Constants.FILTER_TYPE_IFSC, 
+          type:'radio',
+          label:'IFSC',
+          placeholder: 'IFSC',
+          value: Constants.FILTER_TYPE_IFSC
+        },
+        {
+          name: 'City',
+          type:'radio',
+          label: 'City',
+          placeholder: 'City',
+          value: Constants.FILTER_TYPE_CITY
+        },
+        {
+          name: 'Address',
+          type:'radio',
+          label: 'Address',
+          placeholder: 'Address',
+          value: Constants.FILTER_TYPE_ADDRESS
+        }
+      ],
+      buttons: [
+        {
+          text:'cancel',
+          role:'cancel'
+        },
+        {
+          text: 'Ok',
+          handler: (data) =>{
+            this.filterType = data;
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

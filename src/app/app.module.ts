@@ -12,6 +12,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BankDetailsService } from '../services/bank-details';
 import { HttpClientModule} from '@angular/common/http';
+import { SearchBankComponent } from '../components/search-bank/search-bank';
+import { ComponentsModule } from '../components/components.module';
+import { SearchBankComponentModule } from '../components/search-bank/search-bank.module';
 
 @NgModule({
   declarations: [
@@ -19,11 +22,13 @@ import { HttpClientModule} from '@angular/common/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    SearchBankComponentModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

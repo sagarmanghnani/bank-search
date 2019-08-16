@@ -1,4 +1,5 @@
 <!-- Generated template for the SearchBankComponent component -->
 <div>
-  <ion-searchbar (ionInput)="" [(ngModel)]="name"></ion-searchbar>
+  <button ion-button (click)="selectFilter()" > Select Filter </button>
+  <ion-searchbar (ionInput)="searchBank($event)"></ion-searchbar>
 </div>

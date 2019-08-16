@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, AlertController, ToastController } from 'ionic-angular';
 import { BankDetailsService } from '../../services/bank-details';
 import { BankDataModal } from '../../modals/bank-data';
+import { SearchBankComponent } from '../../components/search-bank/search-bank';
 
 @Component({
   selector: 'page-home',
@@ -11,7 +12,9 @@ export class HomePage {
 
   selectedCity:string;
   bankList:BankDataModal[] = [];
+  searchedList:BankDataModal[] = [];
   
+  @ViewChild('search') searchComponent:SearchBankComponent
   constructor(public navCtrl: NavController,
      public bankDetailSeervice:BankDetailsService,
       public alertCtrl:AlertController,
@@ -22,6 +25,7 @@ export class HomePage {
   ionViewDidLoad(){
     this.selectedCity = 'MUMBAI'
     this.getBankDetails();
+
   }
 
   selectCity(){
@@ -74,6 +78,10 @@ export class HomePage {
     .subscribe(res => {
       loader.dismiss();
       this.bankList = [...res];
+      this.searchedList = this.bankList;
+      this.searchComponent.emitSearchedItem.subscribe((response) => {
+        this.searchedList = response;
+      });
     });
   }
 
