@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
 import { BankDataModal } from '../../modals/bank-data';
-import { AlertController } from 'ionic-angular';
+import { AlertController, Searchbar } from 'ionic-angular';
 import { Constants } from '../../Constants';
 import { BankDetailsService } from '../../services/bank-details';
 
@@ -16,6 +16,7 @@ import { BankDetailsService } from '../../services/bank-details';
 })
 export class SearchBankComponent {
 
+  @ViewChild('searchbar') searchbar:Searchbar
   @Output() emitSearchedItem:EventEmitter<BankDataModal[]> = new EventEmitter()
   @Input() bankData:BankDataModal[];
   searchedBank:BankDataModal[] = [];
@@ -31,14 +32,15 @@ export class SearchBankComponent {
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    if(changes['bankData'].currentValue.length > 0){
+    if( changes['bankData'].currentValue && changes['bankData'].currentValue.length > 0){
       this.bankData = changes['bankData'].currentValue
     }
     
   }
 
   searchBank(ev:any){
-    let val:string = ev.target.value;
+    if(ev && ev.target){
+      let val:string = ev.target.value;
     
     let loader = this.bankDetailService.showLoader();
     if(val && val.length > 0){
@@ -83,6 +85,8 @@ export class SearchBankComponent {
     
     this.emitSearchedItem.emit(this.searchedBank);
     loader.dismiss();
+    }
+    
   }
 
   selectFilter(){
@@ -136,6 +140,10 @@ export class SearchBankComponent {
       ]
     });
     alert.present();
+  }
+
+  clearSearchInput(){
+    this.searchbar.clearInput(null);
   }
 
 }

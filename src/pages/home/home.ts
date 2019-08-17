@@ -105,13 +105,13 @@ export class HomePage {
   }
 
   setFavorite(bank:BankDataModal){
-    let favoriteBanks:string[] = [];
+    let favoriteBanks:BankDataModal[] = [];
     if(localStorage.getItem('favorite')){
     favoriteBanks = JSON.parse(localStorage.getItem('favorite'));
     let status = false;
     let position = 0; 
     for(let i = 0;i<favoriteBanks.length;i++){
-      if(favoriteBanks[i] == bank.ifsc){
+      if(favoriteBanks[i].ifsc == bank.ifsc){
         status = true;
         position = i;
         break;
@@ -122,11 +122,11 @@ export class HomePage {
       favoriteBanks.splice(position, 1);
       this.bankDetailSeervice.createToast(`${bank.bank_name} is removed from favorites`, 'bottom');
     }else{
-      favoriteBanks.push(bank.ifsc);
+      favoriteBanks.push(bank);
       this.bankDetailSeervice.createToast(`${bank.bank_name} is added to favorites`, 'bottom');
     }
     }else{
-      favoriteBanks.push(bank.ifsc);
+      favoriteBanks.push(bank);
       this.bankDetailSeervice.createToast(`${bank.bank_name} is added to favorites`, 'bottom');
     }
     
@@ -137,9 +137,9 @@ export class HomePage {
   checkFavorite(bank:BankDataModal){
     let status:boolean = false;
     if(localStorage.getItem('favorite')){
-        let favoriteBanks:string[] = JSON.parse(localStorage.getItem('favorite'));
-        status = favoriteBanks.some(bank_ifsc => {
-        return bank_ifsc == bank.ifsc;
+        let favoriteBanks:BankDataModal[] = JSON.parse(localStorage.getItem('favorite'));
+        status = favoriteBanks.some(banks => {
+        return banks.ifsc == bank.ifsc;
       });
     }
 

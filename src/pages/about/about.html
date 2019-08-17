@@ -6,6 +6,74 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="favorite-page">
+
+  <div class="page-margin">
+
+  <div class="searchbox">
+    <search-bank #search  [bankData] = "bankList" ></search-bank>
+  </div>
+
+  <ion-row *ngIf="searchedList?.length > 0">
+    <ion-col col-12 col-md-6 col-lg-4 *ngFor="let bank of searchedList | slice: pageMetadata?.index1: pageMetadata?.index2 ">
+       <ion-card class="bank-card">
+      
+           <ion-card-content class="bank-detail-card">
+           <ion-row class="bank-name">
+             <ion-col col-11>
+                 {{bank.bank_name}}
+             </ion-col>
+              
+           </ion-row>  
+ 
+           <ion-row class="bank-ifsc">
+             {{bank.ifsc}}
+           </ion-row>
+ 
+           <ion-row>
+             <ion-col col-4 class="bank-location">
+               <div>
+                 City
+               </div>
+ 
+               <div>
+                 {{bank.city}}
+               </div>
+             </ion-col>
+ 
+             <ion-col col-4 class="bank-location">
+               <div>
+                 District
+               </div>
+ 
+               <div>
+                 {{bank.district}}
+               </div>
+             </ion-col>
+ 
+             <ion-col col-4 class="bank-location">
+               <div>
+                 State
+               </div>
+               <div>
+                 {{bank.state}}
+               </div>
+             </ion-col>
+           </ion-row>
+ 
+           <!-- <ion-row class="bank-address">
+             {{bank.address}}
+           </ion-row> -->
+           </ion-card-content>
+         </ion-card>
+       </ion-col>
+   
+   </ion-row>
+
+
+   <paginate-search [pageSize] = "pageSize" [pages] = "totalPage" #paginate ></paginate-search>
+
+
+   </div>
 
 </ion-content>
