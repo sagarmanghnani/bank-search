@@ -28,6 +28,12 @@ export class AboutPage {
   }
 
   ionViewWillEnter(){
+    let pageSize = JSON.parse(localStorage.getItem('page_size'));
+    if(pageSize > 0){
+      this.pageSize = pageSize;
+      this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
+      this.pageMetadata.index2 = (1 * this.pageSize)
+    }
     this.getFavoriteBanks();
   }
 

@@ -1,17 +1,18 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Contact
+      Settings
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+<ion-content class="settings">
+  <ion-item class="page-size-input">
+    <ion-label >Select Page Size</ion-label>
+    <ion-input type="number" [(ngModel)]="pageSize"></ion-input>
+  </ion-item>
+
+  <div style="text-align: center;margin-top: 1rem;">
+    <button ion-button (click)="assignPageSize()" >Submit</button>
+  </div>
 </ion-content>
