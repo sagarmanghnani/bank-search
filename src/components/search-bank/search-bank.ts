@@ -93,28 +93,32 @@ export class SearchBankComponent {
           name:'Bank Name',
           type:'radio',
           label:'Bank Name',
-          value:Constants.FILTER_TYPE_BANK
+          value:Constants.FILTER_TYPE_BANK,
+          checked: this.filterType == Constants.FILTER_TYPE_BANK
         },
         {
           name:Constants.FILTER_TYPE_IFSC, 
           type:'radio',
           label:'IFSC',
           placeholder: 'IFSC',
-          value: Constants.FILTER_TYPE_IFSC
+          value: Constants.FILTER_TYPE_IFSC,
+          checked: this.filterType == Constants.FILTER_TYPE_IFSC,
         },
         {
           name: 'City',
           type:'radio',
           label: 'City',
           placeholder: 'City',
-          value: Constants.FILTER_TYPE_CITY
+          value: Constants.FILTER_TYPE_CITY,
+          checked: this.filterType == Constants.FILTER_TYPE_CITY
         },
         {
           name: 'Address',
           type:'radio',
           label: 'Address',
           placeholder: 'Address',
-          value: Constants.FILTER_TYPE_ADDRESS
+          value: Constants.FILTER_TYPE_ADDRESS,
+          checked: this.filterType == Constants.FILTER_TYPE_ADDRESS
         }
       ],
       buttons: [

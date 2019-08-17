@@ -1,5 +1,5 @@
 <!-- Generated template for the SearchBankComponent component -->
-<div>
-  <button ion-button (click)="selectFilter()" > Select Filter </button>
-  <ion-searchbar (ionInput)="searchBank($event)"></ion-searchbar>
+<div class="search-parent">
+  <ion-searchbar (ionInput)="searchBank($event)" ion-col-9 placeholder = "Search banks"></ion-searchbar>
+  <button ion-button (click)="selectFilter()" small outline ion-col-3 class="filter-type"> by {{this.filterType}} </button>
 </div>

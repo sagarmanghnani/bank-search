@@ -4,74 +4,79 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <button ion-button (click)="selectCity()">
-    select city
-  </button>
-
-  <div class="searchbox">
-    <search-bank #search  [bankData] = "bankList" ></search-bank>
+<ion-content class="home">
+  <div class="page-margin">
+      <div class="select-city">
+        <button ion-button (click)="selectCity()" small >
+            {{selectedCity}}
+          </button>
+      </div>
+      
+        <div class="searchbox">
+          <search-bank #search  [bankData] = "bankList" ></search-bank>
+        </div>
+      
+       <ion-row *ngIf="searchedList?.length > 0">
+         <ion-col col-12 col-md-6 col-lg-4 *ngFor="let bank of searchedList">
+            <ion-card class="bank-card">
+           
+                <ion-card-content class="bank-detail-card">
+                <ion-row class="bank-name">
+                  <ion-col col-11>
+                      {{bank.bank_name}}
+                  </ion-col>
+      
+                  <ion-col col-1 (click)="setFavorite(bank)">
+                      <!-- <ion-icon name="heart-empty" *ngIf="!checkFavorite(bank)"></ion-icon> -->
+                      <i class="far fa-heart" *ngIf="!checkFavorite(bank)"></i>
+                      <ion-icon name="heart" class="favorite-icon" *ngIf="checkFavorite(bank)"></ion-icon>
+                  </ion-col>
+                  
+                </ion-row>  
+      
+                <ion-row class="bank-ifsc">
+                  {{bank.ifsc}}
+                </ion-row>
+      
+                <ion-row>
+                  <ion-col col-4 class="bank-location">
+                    <div>
+                      City
+                    </div>
+      
+                    <div>
+                      {{bank.city}}
+                    </div>
+                  </ion-col>
+      
+                  <ion-col col-4 class="bank-location">
+                    <div>
+                      District
+                    </div>
+      
+                    <div>
+                      {{bank.district}}
+                    </div>
+                  </ion-col>
+      
+                  <ion-col col-4 class="bank-location">
+                    <div>
+                      State
+                    </div>
+                    <div>
+                      {{bank.state}}
+                    </div>
+                  </ion-col>
+                </ion-row>
+      
+                <!-- <ion-row class="bank-address">
+                  {{bank.address}}
+                </ion-row> -->
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+        
+        </ion-row>
   </div>
-
- <div *ngIf="searchedList?.length > 0">
-   <div *ngFor="let bank of searchedList">
-      <ion-card>
-     
-          <ion-card-content class="bank-detail-card">
-          <ion-row class="bank-name">
-            <ion-col col-11>
-                {{bank.bank_name}}
-            </ion-col>
-
-            <ion-col col-1 (click)="setFavorite(bank)">
-                <!-- <ion-icon name="heart-empty" *ngIf="!checkFavorite(bank)"></ion-icon> -->
-                <i class="far fa-heart" *ngIf="!checkFavorite(bank)"></i>
-                <ion-icon name="heart" class="favorite-icon" *ngIf="checkFavorite(bank)"></ion-icon>
-            </ion-col>
-            
-          </ion-row>  
-
-          <ion-row class="bank-ifsc">
-            {{bank.ifsc}}
-          </ion-row>
-
-          <ion-row>
-            <ion-col col-4 class="bank-location">
-              <div>
-                City
-              </div>
-
-              <div>
-                {{bank.city}}
-              </div>
-            </ion-col>
-
-            <ion-col col-4 class="bank-location">
-              <div>
-                District
-              </div>
-
-              <div>
-                {{bank.district}}
-              </div>
-            </ion-col>
-
-            <ion-col col-4 class="bank-location">
-              <div>
-                State
-              </div>
-              <div>
-                {{bank.state}}
-              </div>
-            </ion-col>
-          </ion-row>
-
-          <ion-row class="bank-address">
-            {{bank.address}}
-          </ion-row>
-          </ion-card-content>
-        </ion-card>
-   </div>
   
- </div>
 </ion-content>

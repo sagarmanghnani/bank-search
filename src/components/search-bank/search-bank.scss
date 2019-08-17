@@ -1,3 +1,14 @@
 search-bank {
+    .search-parent{
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
+        .filter-type{
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-right: 11px;
+        }
+
+    }
 }
