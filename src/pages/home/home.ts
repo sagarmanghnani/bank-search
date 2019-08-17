@@ -3,6 +3,7 @@ import { NavController, AlertController, ToastController } from 'ionic-angular';
 import { BankDetailsService } from '../../services/bank-details';
 import { BankDataModal } from '../../modals/bank-data';
 import { SearchBankComponent } from '../../components/search-bank/search-bank';
+import { PaginateSearchComponent } from '../../components/paginate-search/paginate-search';
 
 @Component({
   selector: 'page-home',
@@ -13,13 +14,23 @@ export class HomePage {
   selectedCity:string;
   bankList:BankDataModal[] = [];
   searchedList:BankDataModal[] = [];
+  totalPage:number = 0;
+  pageSize:number = 5;
+  pageMetadata = {
+    index1:0,
+    index2:(1 * this.pageSize) ,
+    pageNumber:0
+  }
+  isSearching:boolean;
+
   
-  @ViewChild('search') searchComponent:SearchBankComponent
+  @ViewChild('search') searchComponent:SearchBankComponent;
+  @ViewChild('paginate') paginateComponent: PaginateSearchComponent
   constructor(public navCtrl: NavController,
      public bankDetailSeervice:BankDetailsService,
       public alertCtrl:AlertController,
     ) {
-
+      console.log(this.pageMetadata);
   }
 
   ionViewDidLoad(){
@@ -79,9 +90,17 @@ export class HomePage {
       loader.dismiss();
       this.bankList = [...res];
       this.searchedList = this.bankList;
+      this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
       this.searchComponent.emitSearchedItem.subscribe((response) => {
         this.searchedList = response;
+        this.totalPage = (this.searchedList.length / this.pageSize);
+        this.paginateComponent.pageNumber = 0;
+        this.paginateComponent.paginateData()
       });
+      this.paginateComponent.emitPageData.subscribe(res => {
+        this.pageMetadata = res;
+        
+      })
     });
   }
 

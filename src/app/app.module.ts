@@ -15,6 +15,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { SearchBankComponent } from '../components/search-bank/search-bank';
 import { ComponentsModule } from '../components/components.module';
 import { SearchBankComponentModule } from '../components/search-bank/search-bank.module';
+import { PaginateSearchModule } from '../components/paginate-search/paginate-search.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SearchBankComponentModule } from '../components/search-bank/search-bank
     BrowserModule,
     HttpClientModule,
     SearchBankComponentModule,
+    PaginateSearchModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

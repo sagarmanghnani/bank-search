@@ -19,6 +19,7 @@ export class SearchBankComponent {
   @Output() emitSearchedItem:EventEmitter<BankDataModal[]> = new EventEmitter()
   @Input() bankData:BankDataModal[];
   searchedBank:BankDataModal[] = [];
+  @Input() isSearching:boolean;
   filterType:string = Constants.FILTER_TYPE_BANK;
   previousStringLength:number = 0;
   constructor(public alertController: AlertController,

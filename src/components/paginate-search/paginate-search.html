@@ -1,0 +1,20 @@
+<!-- Generated template for the PaginateSearchComponent component -->
+<div>
+  <ion-row>
+    <ion-col class="center-elements" >
+      <button ion-button (click)="backFinalPage()" small clear > <ion-icon name="rewind"></ion-icon> </button>
+      <button ion-button (click)="previousPage()" small clear > <ion-icon name="arrow-dropleft"></ion-icon> </button>
+    </ion-col>
+    
+    <ion-col class="center-elements" >
+      <input type="number" [(ngModel)]="pageNumber" >
+      <button ion-button (click)="paginateData()" small clear> <ion-icon name="arrow-round-forward"></ion-icon> </button>
+    </ion-col>
+
+    <ion-col class="center-elements" >
+        <button ion-button (click)="nextPage()" small clear > <ion-icon name="arrow-dropright"></ion-icon> </button>
+        <button ion-button (click)="forwardFinalPage()" small clear> <ion-icon name="fastforward"></ion-icon> </button>
+    </ion-col>
+
+  </ion-row>
+</div>

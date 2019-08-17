@@ -17,7 +17,7 @@
         </div>
       
        <ion-row *ngIf="searchedList?.length > 0">
-         <ion-col col-12 col-md-6 col-lg-4 *ngFor="let bank of searchedList">
+         <ion-col col-12 col-md-6 col-lg-4 *ngFor="let bank of searchedList | slice: pageMetadata?.index1: pageMetadata?.index2">
             <ion-card class="bank-card">
            
                 <ion-card-content class="bank-detail-card">
@@ -77,6 +77,8 @@
             </ion-col>
         
         </ion-row>
+        
+        <paginate-search [pageSize] = "pageSize" [pages] = "totalPage" #paginate ></paginate-search>
   </div>
   
 </ion-content>
