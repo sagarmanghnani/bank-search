@@ -32,7 +32,7 @@ export class AboutPage {
     if(pageSize > 0){
       this.pageSize = pageSize;
       this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
-      this.pageMetadata.index2 = (1 * this.pageSize)
+      this.pageMetadata.index2 = ((this.pageMetadata.pageNumber + 1) * this.pageSize)      
     }
     this.getFavoriteBanks();
   }
