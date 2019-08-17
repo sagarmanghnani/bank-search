@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { BankDataModal } from '../../modals/bank-data';
 import { SearchBankComponent } from '../../components/search-bank/search-bank';
 import { PaginateSearchComponent } from '../../components/paginate-search/paginate-search';
+import { BankDetailsService } from '../../services/bank-details';
 
 @Component({
   selector: 'page-about',
@@ -22,7 +23,7 @@ export class AboutPage {
 
   @ViewChild('search') searchBankComponent:SearchBankComponent;
   @ViewChild('paginate') paginateComponent:PaginateSearchComponent;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public bankService:BankDetailsService) {
 
   }
 
@@ -46,6 +47,42 @@ export class AboutPage {
       this.pageMetadata = res;
       
     })
+  }
+
+  removeBankFromFavorite(bank:BankDataModal){
+    
+    let searchedPosition:number = -1;
+    for(let i = 0; i< this.searchedList.length;i++){
+      if(this.searchedList[i].ifsc == bank.ifsc){
+        searchedPosition = i;
+        break;
+      }
+    }
+      if(searchedPosition >= 0){
+        this.searchedList.splice(searchedPosition, 1);
+      }
+      searchedPosition = -1;
+      let favoriteList:BankDataModal[] = JSON.parse(localStorage.getItem('favorite'));
+      if(favoriteList && favoriteList.length > 0){
+        for(let i = 0;i<favoriteList.length;i++){
+          if(favoriteList[i].ifsc == bank.ifsc){
+            searchedPosition = i;
+            break;
+          }
+        }
+        if(searchedPosition >= 0){
+          favoriteList.splice(searchedPosition, 1);
+        }
+        this.bankList = [...favoriteList];
+        localStorage.setItem('favorite', JSON.stringify(favoriteList));
+        this.bankService.createToast('Selected Bank is deleted','bottom');
+        this.totalPage = Math.floor(this.bankList.length / this.pageSize);
+        if(!this.bankList[this.pageMetadata.index1]){
+          this.paginateComponent.pageNumber -= 1;
+          this.paginateComponent.paginateData();
+        }
+      }
+    
   }
 
 }

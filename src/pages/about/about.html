@@ -23,7 +23,10 @@
              <ion-col col-11>
                  {{bank.bank_name}}
              </ion-col>
-              
+            
+             <ion-col col-1>
+                <button ion-button small clear (click)="removeBankFromFavorite(bank)"> <ion-icon name="remove-circle"></ion-icon> </button>
+             </ion-col>
            </ion-row>  
  
            <ion-row class="bank-ifsc">
