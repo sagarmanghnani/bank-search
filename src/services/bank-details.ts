@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
-import { map } from "rxjs/operators"
+import { map,share } from "rxjs/operators";
+import 'rxjs/add/observable/of';
 import { BankDataModal } from "../modals/bank-data";
 import { LoadingController, ToastController } from "ionic-angular";
 
@@ -9,6 +10,8 @@ import { LoadingController, ToastController } from "ionic-angular";
 @Injectable()
 export class BankDetailsService {
     BANK_DETAILS_URL:string = "https://vast-shore-74260.herokuapp.com/banks";
+    observable:Observable<BankDataModal[]>
+    bankDetailsMap: Map<string, BankDataModal[]> = new Map();
 
     constructor(public http: HttpClient,
          public loadingController: LoadingController,
@@ -17,6 +20,7 @@ export class BankDetailsService {
 
     }
     getBankDetails(city:string):Observable<BankDataModal[]> {
+        let cachedResult:BankDataModal[] = this.bankDetailsMap.get(city);
         let httpOptions = new HttpHeaders({
             'Content-type':'application/json'
         });
@@ -24,9 +28,19 @@ export class BankDetailsService {
         if(city){
             url = `${url}?city=${city}`;
         }
-        return this.http.get<BankDataModal[]> (url, {
-            headers:httpOptions
-        });
+        if(cachedResult && cachedResult.length > 0){
+            return Observable.of(cachedResult);
+        }else{
+            let observable = this.http.get<BankDataModal[]> (url, {
+                headers:httpOptions
+            });
+            observable.subscribe(res => {
+                if(res.length > 0){
+                    this.bankDetailsMap.set(city, res);
+                }
+            });
+            return observable;
+        }
         
     }
 
@@ -46,4 +60,5 @@ export class BankDetailsService {
         });
         toast.present();
     }
+
 }
