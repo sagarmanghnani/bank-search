@@ -93,7 +93,7 @@ export class HomePage {
       this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
       this.searchComponent.emitSearchedItem.subscribe((response) => {
         this.searchedList = response;
-        this.totalPage = (this.searchedList.length / this.pageSize);
+        this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
         this.paginateComponent.pageNumber = 0;
         this.paginateComponent.paginateData()
       });
