@@ -62,5 +62,16 @@ page-about {
             color: #ff00008f;
         }
     }
+
+    .no-favorites{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        font-size: 2.2rem;
+        color: gray;
+    }
 }
+
+
 }

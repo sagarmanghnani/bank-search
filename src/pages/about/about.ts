@@ -42,11 +42,12 @@ export class AboutPage {
       this.paginateComponent.pageNumber = 0;
       this.paginateComponent.paginateData()
     });
-
-    this.paginateComponent.emitPageData.subscribe(res => {
-      this.pageMetadata = res;
-      
-    })
+    if(this.searchedList && this.searchedList.length > 0){
+      this.paginateComponent.emitPageData.subscribe(res => {
+        this.pageMetadata = res;
+        
+      })
+    }
   }
 
   removeBankFromFavorite(bank:BankDataModal){
@@ -78,8 +79,10 @@ export class AboutPage {
         this.bankService.createToast('Selected Bank is deleted','bottom');
         this.totalPage = Math.floor(this.bankList.length / this.pageSize);
         if(!this.bankList[this.pageMetadata.index1]){
-          this.paginateComponent.pageNumber -= 1;
-          this.paginateComponent.paginateData();
+          if(this.paginateComponent.pageNumber > 0){
+            this.paginateComponent.pageNumber -= 1;
+            this.paginateComponent.paginateData();
+          }
         }
       }
     

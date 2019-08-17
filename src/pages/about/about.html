@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Favorite Banks
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,7 +11,7 @@
   <div class="page-margin">
 
   <div class="searchbox">
-    <search-bank #search  [bankData] = "bankList" ></search-bank>
+    <search-bank #search  [bankData] = "bankList" [hidden]="!(searchedList?.length > 0)" ></search-bank>
   </div>
 
   <ion-row *ngIf="searchedList?.length > 0">
@@ -74,9 +74,11 @@
    </ion-row>
 
 
-   <paginate-search [pageSize] = "pageSize" [pages] = "totalPage" #paginate ></paginate-search>
+   <paginate-search [pageSize] = "pageSize" [pages] = "totalPage" [hidden]="!(searchedList?.length > 0)" #paginate  ></paginate-search>
 
-
+   <div class="no-favorites">
+      No favorites to show
+   </div>
    </div>
 
 </ion-content>
