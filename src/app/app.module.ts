@@ -16,6 +16,8 @@ import { SearchBankComponent } from '../components/search-bank/search-bank';
 import { ComponentsModule } from '../components/components.module';
 import { SearchBankComponentModule } from '../components/search-bank/search-bank.module';
 import { PaginateSearchModule } from '../components/paginate-search/paginate-search.module';
+import { BankDetailsPage } from '../pages/bank-details/bank-details';
+import { BankDetailsPageModule } from '../pages/bank-details/bank-details.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { PaginateSearchModule } from '../components/paginate-search/paginate-sea
     HttpClientModule,
     SearchBankComponentModule,
     PaginateSearchModule,
+    BankDetailsPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -39,7 +42,7 @@ import { PaginateSearchModule } from '../components/paginate-search/paginate-sea
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
   ],
   providers: [
     StatusBar,

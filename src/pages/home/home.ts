@@ -141,7 +141,7 @@ export class HomePage {
     }
     
     localStorage.setItem('favorite', JSON.stringify(favoriteBanks));
-    
+    event.stopPropagation();
   }
 
   checkFavorite(bank:BankDataModal){
@@ -154,6 +154,12 @@ export class HomePage {
     }
 
     return status;
+  }
+
+  navigateToBankDetails(bank:BankDataModal){
+    this.navCtrl.push("BankDetailsPage", {
+      bankDetails:bank
+    })
   }
 
 }

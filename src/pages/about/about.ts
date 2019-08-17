@@ -91,7 +91,13 @@ export class AboutPage {
           }
         }
       }
-    
+    event.stopPropagation();
+  }
+
+  navigateToBankDetails(bank:BankDataModal){
+    this.navCtrl.push("BankDetailsPage", {
+      bankDetails:bank
+    })
   }
 
 }

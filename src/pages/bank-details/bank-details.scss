@@ -1,0 +1,56 @@
+page-bank-details {
+    .bank-name{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: #fafafa;
+        font-size: 1.5rem;
+        text-transform: capitalize;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .location-heading{
+        text-align: center;
+        font-size: 1.3rem;
+        margin-top: 1.4rem;
+        color: gray;
+    }
+
+    .location-description{
+        margin-bottom: 1rem;
+    }
+
+    .horizontal-line{
+        height: 2px;
+        border: 1px solid gray;
+        width: 110px;
+        margin: auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .bank-detail-card{
+        box-shadow: none;
+        border: 1px solid #ececec;
+    }
+
+    .page-margin{
+        width: 80%;
+        margin: auto;
+        height: 80vh;
+        display: flex;
+        align-items: center;        
+    }
+
+    @media only screen and (max-width:768px) {
+        .page-margin{
+            width: 100% !important;
+        }
+    }
+
+    @media screen and (min-width:769px) and (max-width:1200px){
+        .page-margin{
+            width:95% !important;
+        }
+    }
+}
