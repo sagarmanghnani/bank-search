@@ -20,7 +20,7 @@ export class BankDetailsService {
 
     }
     getBankDetails(city:string):Observable<BankDataModal[]> {
-        let cachedResult:BankDataModal[] = this.bankDetailsMap.get(city);
+        let cachedResult:BankDataModal[] = JSON.parse(localStorage.getItem(city));
         let httpOptions = new HttpHeaders({
             'Content-type':'application/json'
         });
@@ -36,7 +36,7 @@ export class BankDetailsService {
             });
             observable.subscribe(res => {
                 if(res.length > 0){
-                    this.bankDetailsMap.set(city, res);
+                    localStorage.setItem(city, JSON.stringify(res));
                 }
             });
             return observable;
