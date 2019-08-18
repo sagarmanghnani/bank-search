@@ -146,4 +146,26 @@ export class SearchBankComponent {
     this.searchbar.clearInput(null);
   }
 
+  changeFilterNaming(){
+    let filterString:string = '';
+    switch (this.filterType) {
+      case Constants.FILTER_TYPE_BANK: {
+        return `Bank Name`;
+        
+      }
+      case Constants.FILTER_TYPE_CITY: {
+        return `City`;
+        
+      }
+
+      case Constants.FILTER_TYPE_IFSC: {
+        return `IFSC`;
+      }
+      case Constants.FILTER_TYPE_ADDRESS:{
+        return `Address`;
+      }
+
+    }
+  }
+
 }

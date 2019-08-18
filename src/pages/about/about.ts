@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { BankDataModal } from '../../modals/bank-data';
 import { SearchBankComponent } from '../../components/search-bank/search-bank';
 import { PaginateSearchComponent } from '../../components/paginate-search/paginate-search';
 import { BankDetailsService } from '../../services/bank-details';
+import { BankDetailsPage } from '../bank-details/bank-details';
 
 @Component({
   selector: 'page-about',
@@ -23,7 +24,7 @@ export class AboutPage {
 
   @ViewChild('search') searchBankComponent:SearchBankComponent;
   @ViewChild('paginate') paginateComponent:PaginateSearchComponent;
-  constructor(public navCtrl: NavController, public bankService:BankDetailsService) {
+  constructor(public navCtrl: NavController, public bankService:BankDetailsService, public alertController: AlertController) {
 
   }
 
@@ -95,9 +96,31 @@ export class AboutPage {
   }
 
   navigateToBankDetails(bank:BankDataModal){
-    this.navCtrl.push("BankDetailsPage", {
+    this.navCtrl.push(BankDetailsPage, {
       bankDetails:bank
     })
+  }
+
+
+  alertDeleteFavorite(bank:BankDataModal){
+    event.stopPropagation();
+    let alertCtrl = this.alertController.create({
+      title: 'Are you sure ?',
+      message: 'You are removing bank from favorite, are you sure you want to remove bank from favorite',
+      buttons: [
+        {
+          text: 'cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.removeBankFromFavorite(bank);
+          }
+        }
+      ]
+    });
+    alertCtrl.present();
   }
 
 }

@@ -4,6 +4,7 @@ import { BankDetailsService } from '../../services/bank-details';
 import { BankDataModal } from '../../modals/bank-data';
 import { SearchBankComponent } from '../../components/search-bank/search-bank';
 import { PaginateSearchComponent } from '../../components/paginate-search/paginate-search';
+import { BankDetailsPage } from '../bank-details/bank-details';
 
 @Component({
   selector: 'page-home',
@@ -58,21 +59,24 @@ export class HomePage {
           type:'radio',
           placeholder: 'MUMBAI',
           label:'MUMBAI',
-          value:'MUMBAI'
+          value:'MUMBAI',
+          checked: this.selectedCity == `MUMBAI`
         },
         {
           name:'BANGALORE', 
           type:'radio',
           label:'BANGALORE',
           placeholder: 'BANGALORE',
-          value: 'BANGALORE'
+          value: 'BANGALORE',
+          checked: this.selectedCity == `BANGALORE`
         },
         {
           name: 'DELHI',
           type:'radio',
           label: 'DELHI',
           placeholder: 'DELHI',
-          value: 'DELHI'
+          value: 'DELHI',
+          checked: this.selectedCity == `DELHI`
         }
       ],
       buttons: [
@@ -157,7 +161,7 @@ export class HomePage {
   }
 
   navigateToBankDetails(bank:BankDataModal){
-    this.navCtrl.push("BankDetailsPage", {
+    this.navCtrl.push(BankDetailsPage, {
       bankDetails:bank
     })
   }

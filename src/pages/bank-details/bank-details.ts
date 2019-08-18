@@ -31,4 +31,7 @@ export class BankDetailsPage {
       return `https://www.google.com/maps/search/?api=1&query=${this.bankDetails.address}`
     }
   }
+
+
+  
 }
