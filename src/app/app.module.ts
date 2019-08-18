@@ -13,7 +13,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { BankDetailsService } from '../services/bank-details';
 import { HttpClientModule} from '@angular/common/http';
 import { SearchBankComponent } from '../components/search-bank/search-bank';
-import { ComponentsModule } from '../components/components.module';
 import { SearchBankComponentModule } from '../components/search-bank/search-bank.module';
 import { PaginateSearchModule } from '../components/paginate-search/paginate-search.module';
 import { BankDetailsPage } from '../pages/bank-details/bank-details';
