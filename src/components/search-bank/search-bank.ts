@@ -135,6 +135,8 @@ export class SearchBankComponent {
           text: 'Ok',
           handler: (data) =>{
             this.filterType = data;
+            this.clearSearchInput();
+            this.searchedBank = [...this.bankData];
           }
         }
       ]

@@ -64,12 +64,14 @@ export class PaginateSearchComponent {
   }
 
   paginateData(){
-
-    if(this.pageNumber > this.pages - 1){
-      this.bankService.createToast("Entered page exceeds result", "bottom");
-      this.pageNumber -= 1;
-      return;
-    }else if(this.pageNumber < 0){
+    if(this.pageNumber > 0){
+      if(this.pageNumber > this.pages - 1){
+        this.bankService.createToast("Entered page exceeds result", "bottom");
+        this.pageNumber -= 1;
+        return;
+      }
+    }
+    if(this.pageNumber < 0){
       this.bankService.createToast("Page number cannot be negative quantity", "bottom");
       this.pageNumber = 0;
       return;
