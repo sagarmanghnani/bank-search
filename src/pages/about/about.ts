@@ -41,20 +41,23 @@ export class AboutPage {
   getFavoriteBanks(){
     this.searchBankComponent.clearSearchInput();
     this.bankList = JSON.parse(localStorage.getItem('favorite'))
-    this.searchedList = [...this.bankList];
-    this.totalPage = Math.floor(this.searchedList.length / this.pageSize)
-    this.searchBankComponent.emitSearchedItem.subscribe(res => {
-      this.searchedList = res;
-      this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
-      this.paginateComponent.pageNumber = 0;
-      this.paginateComponent.paginateData()
-    });
-    if(this.searchedList && this.searchedList.length > 0){
-      this.paginateComponent.emitPageData.subscribe(res => {
-        this.pageMetadata = res;
-        
-      })
+    if(this.bankList && this.bankList.length > 0){
+      this.searchedList = [...this.bankList];
+      this.totalPage = Math.floor(this.searchedList.length / this.pageSize)
+      this.searchBankComponent.emitSearchedItem.subscribe(res => {
+        this.searchedList = res;
+        this.totalPage = Math.floor(this.searchedList.length / this.pageSize);
+        this.paginateComponent.pageNumber = 0;
+        this.paginateComponent.paginateData()
+      });
+      if(this.searchedList && this.searchedList.length > 0){
+        this.paginateComponent.emitPageData.subscribe(res => {
+          this.pageMetadata = res;
+          
+        })
+      }
     }
+   
   }
 
   removeBankFromFavorite(bank:BankDataModal){

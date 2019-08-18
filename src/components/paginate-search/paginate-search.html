@@ -7,7 +7,7 @@
     </ion-col>
     
     <ion-col col-6 class="center-elements" >
-      <input type="number" [(ngModel)]="pageNumber" > of {{pages - 1}}
+      <input type="number" [(ngModel)]="pageNumber" > of {{pages - 1 > 0 ? pages - 1: pages}}
       <button ion-button (click)="paginateData()" small clear> <ion-icon name="arrow-round-forward"></ion-icon> </button>
     </ion-col>
 

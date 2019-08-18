@@ -18,5 +18,9 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+    let pageSize:number = JSON.parse(localStorage.getItem('page_size'));
+    if(!pageSize){
+      localStorage.setItem('page_size', '5');
+    }
   }
 }
